@@ -1,9 +1,12 @@
 import "dotenv/config";
 import { DataSource, DatabaseType } from "typeorm";
 
+import { Category } from "../modules/cars/entities/Category";
+import { CreateCategories1654777657996 } from "./migrations/1654777657996-CreateCategories";
+
 const dbType: DatabaseType = "postgres";
 
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
     type: dbType,
     host: process.env.TYPEORM_HOST,
     username: process.env.TYPEORM_USERNAME,
@@ -12,10 +15,16 @@ export const AppDataSource = new DataSource({
     port: Number(process.env.TYPEORM_PORT),
     synchronize: true,
     logging: false,
-    entities: [process.env.TYPEORM_ENTITIES],
-    migrations: [process.env.TYPEORM_MIGRATIONS],
+    entities: [Category],
+    migrations: [CreateCategories1654777657996],
 });
 
-AppDataSource.initialize()
-    .then(() => console.log("DataSource initialized"))
-    .catch((error) => console.log("Error to initialize Datasource:", error));
+// AppDataSource.initialize()
+//     .then(() => console.log("DataSource initialized"))
+//     .catch((error) => console.log("Error to initialize Datasource:", error));
+
+export function createConnection(host = "database"): Promise<DataSource> {
+    return AppDataSource.setOptions({ host }).initialize();
+}
+
+export default AppDataSource;
