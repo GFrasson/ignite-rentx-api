@@ -2,7 +2,9 @@ import "dotenv/config";
 import { DataSource, DatabaseType } from "typeorm";
 
 import { Category } from "../modules/cars/entities/Category";
+import { Specification } from "../modules/cars/entities/Specification";
 import { CreateCategories1654777657996 } from "./migrations/1654777657996-CreateCategories";
+import { CreateSpecifications1654866421266 } from "./migrations/1654866421266-CreateSpecifications";
 
 const dbType: DatabaseType = "postgres";
 
@@ -15,8 +17,8 @@ const AppDataSource = new DataSource({
     port: Number(process.env.TYPEORM_PORT),
     synchronize: true,
     logging: false,
-    entities: [Category],
-    migrations: [CreateCategories1654777657996],
+    entities: [Category, Specification],
+    migrations: [CreateCategories1654777657996, CreateSpecifications1654866421266],
 });
 
 // AppDataSource.initialize()
