@@ -8,6 +8,7 @@ import { CreateCategories1654777657996 } from "./migrations/1654777657996-Create
 import { CreateSpecifications1654866421266 } from "./migrations/1654866421266-CreateSpecifications";
 import { CreateUsers1654953994849 } from "./migrations/1654953994849-CreateUsers";
 import { AlterUserDeleteUsername1654956568094 } from "./migrations/1654956568094-AlterUserDeleteUsername";
+import { AlterUserAddAvatar1655136259554 } from "./migrations/1655136259554-AlterUserAddAvatar";
 
 const dbType: DatabaseType = "postgres";
 
@@ -26,6 +27,7 @@ const AppDataSource = new DataSource({
         CreateSpecifications1654866421266,
         CreateUsers1654953994849,
         AlterUserDeleteUsername1654956568094,
+        AlterUserAddAvatar1655136259554,
     ],
 });
 
