@@ -1,9 +1,10 @@
 import "dotenv/config";
 import { DataSource, DatabaseType } from "typeorm";
 
-import { User } from "../modules/accounts/entities/User";
-import { Category } from "../modules/cars/entities/Category";
-import { Specification } from "../modules/cars/entities/Specification";
+import { User } from "@modules/accounts/infra/typeorm/entities/User";
+import { Category } from "@modules/cars/infra/typeorm/entities/Category";
+import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
+
 import { CreateCategories1654777657996 } from "./migrations/1654777657996-CreateCategories";
 import { CreateSpecifications1654866421266 } from "./migrations/1654866421266-CreateSpecifications";
 import { CreateUsers1654953994849 } from "./migrations/1654953994849-CreateUsers";
