@@ -15,6 +15,7 @@ import { AlterUserAddAvatar1655136259554 } from "./migrations/1655136259554-Alte
 import { CreateCars1657285222222 } from "./migrations/1657285222222-CreateCars";
 import { CreateSpecificationsCars1657549219871 } from "./migrations/1657549219871-CreateSpecificationsCars";
 import { CreateCarImages1657633778315 } from "./migrations/1657633778315-CreateCarImages";
+import { CreateRentals1657729351105 } from "./migrations/1657729351105-CreateRentals";
 
 const dbType: DatabaseType = "postgres";
 
@@ -37,6 +38,7 @@ const AppDataSource = new DataSource({
         CreateCars1657285222222,
         CreateSpecificationsCars1657549219871,
         CreateCarImages1657633778315,
+        CreateRentals1657729351105,
     ],
 });
 
