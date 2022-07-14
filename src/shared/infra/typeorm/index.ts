@@ -6,6 +6,7 @@ import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { CarImage } from "@modules/cars/infra/typeorm/entities/CarImage";
 import { Category } from "@modules/cars/infra/typeorm/entities/Category";
 import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
+import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 
 import { CreateCategories1654777657996 } from "./migrations/1654777657996-CreateCategories";
 import { CreateSpecifications1654866421266 } from "./migrations/1654866421266-CreateSpecifications";
@@ -28,7 +29,7 @@ const AppDataSource = new DataSource({
     port: Number(process.env.TYPEORM_PORT),
     synchronize: false,
     logging: false,
-    entities: [Category, Specification, User, Car, CarImage],
+    entities: [Category, Specification, User, Car, CarImage, Rental],
     migrations: [
         CreateCategories1654777657996,
         CreateSpecifications1654866421266,
