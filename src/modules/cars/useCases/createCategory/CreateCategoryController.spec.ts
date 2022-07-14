@@ -7,6 +7,7 @@ import { app } from "@shared/infra/http/app";
 import { createConnection } from "@shared/infra/typeorm";
 
 let connection: DataSource;
+let adminToken: string;
 
 describe("Create Category Controller", () => {
     beforeAll(async () => {
@@ -18,10 +19,17 @@ describe("Create Category Controller", () => {
 
         await connection.query(
             `
-        INSERT INTO users (id, name, email, password, "isAdmin", created_at, driver_license)
-        VALUES ('${id}', 'admin', 'admin@admin.com.br', '${password}', true, 'now()', 'XXXXXX')
-        `
+            INSERT INTO users (id, name, email, password, "isAdmin", created_at, driver_license)
+            VALUES ('${id}', 'admin', 'admin@admin.com.br', '${password}', true, 'now()', 'XXXXXX')
+            `
         );
+
+        const responseToken = await request(app).post("/sessions").send({
+            email: "admin@admin.com.br",
+            password: "admin",
+        });
+
+        adminToken = responseToken.body.token;
     });
 
     afterAll(async () => {
@@ -30,13 +38,6 @@ describe("Create Category Controller", () => {
     });
 
     it("should be able to create a new category", async () => {
-        const responseToken = await request(app).post("/sessions").send({
-            email: "admin@admin.com.br",
-            password: "admin",
-        });
-
-        const { token } = responseToken.body;
-
         const response = await request(app)
             .post("/categories")
             .send({
@@ -44,9 +45,23 @@ describe("Create Category Controller", () => {
                 description: "Category Supertest description",
             })
             .set({
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${adminToken}`,
             });
 
         expect(response.status).toBe(201);
+    });
+
+    it("should not be able to create a new category with name exists", async () => {
+        const response = await request(app)
+            .post("/categories")
+            .send({
+                name: "Category Supertest",
+                description: "Category Supertest description",
+            })
+            .set({
+                Authorization: `Bearer ${adminToken}`,
+            });
+
+        expect(response.status).toBe(400);
     });
 });
