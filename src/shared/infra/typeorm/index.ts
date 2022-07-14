@@ -25,7 +25,7 @@ const AppDataSource = new DataSource({
     host: process.env.TYPEORM_HOST,
     username: process.env.TYPEORM_USERNAME,
     password: process.env.TYPEORM_PASSWORD,
-    database: process.env.TYPEORM_DATABASE,
+    database: process.env.NODE_ENV === "test" ? "rentx_test" : process.env.TYPEORM_DATABASE,
     port: Number(process.env.TYPEORM_PORT),
     synchronize: false,
     logging: false,
@@ -48,7 +48,9 @@ const AppDataSource = new DataSource({
 //     .catch((error) => console.log("Error to initialize Datasource:", error));
 
 export function createConnection(host = "database"): Promise<DataSource> {
-    return AppDataSource.setOptions({ host }).initialize();
+    return AppDataSource.setOptions({
+        host: process.env.NODE_ENV === "test" ? "localhost" : host,
+    }).initialize();
 }
 
 export default AppDataSource;

@@ -3,7 +3,7 @@ import { v4 as uuidV4 } from "uuid";
 
 import { createConnection } from "../index";
 
-async function create() {
+export async function createAdmin() {
     const connection = await createConnection("localhost");
 
     const id = uuidV4();
@@ -19,4 +19,4 @@ async function create() {
     await connection.destroy();
 }
 
-create().then(() => console.log("User admin created!"));
+createAdmin().then(() => console.log("User admin created!"));
