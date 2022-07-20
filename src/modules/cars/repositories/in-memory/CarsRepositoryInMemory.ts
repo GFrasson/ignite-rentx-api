@@ -28,7 +28,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
             brand,
             category_id,
             specifications,
-            id,
+            ...(id && { id }),
         });
 
         this.cars.push(car);

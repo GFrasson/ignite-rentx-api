@@ -25,6 +25,12 @@ class CreateRentalUseCase {
 
     async execute({ user_id, car_id, expected_return_date }: IRequest): Promise<Rental> {
         const minimumRentalTimeInHours = 24;
+        const car = await this.carsRepository.findById(car_id);
+
+        if (!car) {
+            throw new AppError("Car does not exist");
+        }
+
         const rentalOpenToCar = await this.rentalsRepository.findOpenRentalByCar(car_id);
 
         if (rentalOpenToCar) {
