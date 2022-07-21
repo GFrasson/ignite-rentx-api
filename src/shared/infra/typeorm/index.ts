@@ -2,6 +2,7 @@ import "dotenv/config";
 import { DataSource, DatabaseType } from "typeorm";
 
 import { User } from "@modules/accounts/infra/typeorm/entities/User";
+import { UserToken } from "@modules/accounts/infra/typeorm/entities/UserToken";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { CarImage } from "@modules/cars/infra/typeorm/entities/CarImage";
 import { Category } from "@modules/cars/infra/typeorm/entities/Category";
@@ -30,7 +31,7 @@ const AppDataSource = new DataSource({
     port: Number(process.env.TYPEORM_PORT),
     synchronize: false,
     logging: false,
-    entities: [Category, Specification, User, Car, CarImage, Rental],
+    entities: [Category, Specification, User, Car, CarImage, Rental, UserToken],
     migrations: [
         CreateCategories1654777657996,
         CreateSpecifications1654866421266,
