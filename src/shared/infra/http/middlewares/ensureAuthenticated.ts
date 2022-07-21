@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { container } from "tsyringe";
 
+import auth from "@config/auth";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
 import { AppError } from "@shared/errors/AppError";
 
@@ -25,7 +26,7 @@ export async function ensureAuthenticated(
 
     try {
         // Verify token and get user id
-        const { sub: userId } = verify(token, "70d7a0127c3dd60638e6261401924426") as IPayload;
+        const { sub: userId } = verify(token, auth.secretToken) as IPayload;
 
         // Verify user
         const usersRepository = container.resolve(UsersRepository);
