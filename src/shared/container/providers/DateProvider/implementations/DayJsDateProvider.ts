@@ -20,6 +20,10 @@ class DayJsDateProvider implements IDateProvider {
         return dayjs(endDateUTC).diff(startDateUTC, "days");
     }
 
+    compareIfBefore(startDate: Date, endDate: Date): boolean {
+        return dayjs(startDate).isBefore(endDate);
+    }
+
     convertToUTC(date: Date): string {
         return dayjs(date).utc().local().format();
     }
