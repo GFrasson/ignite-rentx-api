@@ -7,7 +7,7 @@ import { app } from "@shared/infra/http/app";
 import { createConnection } from "@shared/infra/typeorm";
 
 let connection: DataSource;
-let adminToken: string;
+let adminRefreshToken: string;
 
 describe("Create Category Controller", () => {
     beforeAll(async () => {
@@ -29,7 +29,7 @@ describe("Create Category Controller", () => {
             password: "admin",
         });
 
-        adminToken = responseToken.body.token;
+        adminRefreshToken = responseToken.body.refreshToken;
     });
 
     afterAll(async () => {
@@ -45,7 +45,7 @@ describe("Create Category Controller", () => {
                 description: "Category Supertest description",
             })
             .set({
-                Authorization: `Bearer ${adminToken}`,
+                Authorization: `Bearer ${adminRefreshToken}`,
             });
 
         expect(response.status).toBe(201);
@@ -59,7 +59,7 @@ describe("Create Category Controller", () => {
                 description: "Category Supertest description",
             })
             .set({
-                Authorization: `Bearer ${adminToken}`,
+                Authorization: `Bearer ${adminRefreshToken}`,
             });
 
         expect(response.status).toBe(400);
