@@ -50,10 +50,12 @@ const AppDataSource = new DataSource({
 //     .then(() => console.log("DataSource initialized"))
 //     .catch((error) => console.log("Error to initialize Datasource:", error));
 
-export function createConnection(host = "database"): Promise<DataSource> {
-    return AppDataSource.setOptions({
-        host: process.env.NODE_ENV === "test" ? "localhost" : host,
-    }).initialize();
+export function createConnection(): Promise<DataSource> {
+    return AppDataSource.initialize();
+
+    // return AppDataSource.setOptions({
+    //     host: process.env.NODE_ENV === "test" ? "localhost" : host,
+    // }).initialize();
 }
 
 export default AppDataSource;
