@@ -8,11 +8,14 @@ import upload from "@config/upload";
 
 import swaggerFile from "../../../swagger.json";
 import { AppError } from "../../errors/AppError";
+import { rateLimiter } from "./middlewares/rateLimiter";
 import { router } from "./routes";
 
 const app = express();
 
 app.use(express.json());
+
+app.use(rateLimiter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
